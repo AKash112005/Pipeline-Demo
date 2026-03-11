@@ -16,7 +16,7 @@ pipeline {
         stage('Build App') {
             steps {
                 sh '''
-                export PATH=$PATH:/usr/bin
+                cd "Docker demo pipeline"
                 node -v
                 npm -v
                 npm install
@@ -32,7 +32,10 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                sh '''
+                cd "Docker demo pipeline"
+                docker build -t yourdockerhubusername/jenkins-demo-app .
+                '''
             }
         }
 
